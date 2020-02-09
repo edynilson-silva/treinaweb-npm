@@ -20,11 +20,23 @@ npm search nomePacote
 ```
 npm install lodash
 ```
-
 #### Em versões anteriores, é necessário adicionar a flag *--save* ou *-s*
 ```
 npm install vue --save
 ```
+#### Instalar versão específica:
+```
+npm install lodash@4.17.3
+```
+#### Passar intervalo de versões:
+```
+npm install lodash@">2.0.0 <4.0.0"
+```
+#### Instalar a versão mais recente:
+```
+npm install nomePacote@latest
+```
+#### Observação: Podemos trocar o *install* por *i*
 #### Detalhe: Se queremos importar um pacote instalado globalmente:
 ```
 var lodash = require('lodash');
