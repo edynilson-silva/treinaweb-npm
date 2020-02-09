@@ -62,3 +62,21 @@ npm init --yes
 ```
 npm install
 ```
+#### Ainda no package.json, há o *devDependencies* para listarmos os pacotes que estamos usando apenas no **desenvolvimento** (Coisas que no cliente ou servidor não precisarão ser instalados)
+
+#### Para instalar o pacote no *devDependencies* ( *--save-dev* ou *-D*)
+```
+npm install nomePacote --save-dev 
+```
+### Instalar pacotes por repositórios GIT
+```
+npm i url-github
+```
+### Atualizar pacotes
+```
+npm update
+```
+> **Detalhe:** **npm update** atualiza para a versão melhor indicada, atualizará tudo.
+#### Podemos especificar também: 
+```
+npm update nomePacote
