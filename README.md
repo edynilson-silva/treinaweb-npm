@@ -118,3 +118,18 @@ npm outdated -g --depth=0
 ```
 npm ls -g --depth=0
 ```
+#### Atualizar os pacotes
+```
+npm update -g
+npm update -g nomePacote
+```
+#### Listando e desinstalando pacotes globais
+```
+npm ls -g --depth=0
+npm uninstall -g nomePacote
+```
+> No primeiro comando: listei o que tem instalado globalmente
+
+#### Criando Pacotes
+
+> Necessário possuir um **_package.json_**, em seguida, dar um **_npm init_** e **responder as perguntas**.
