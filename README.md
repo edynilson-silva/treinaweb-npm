@@ -102,3 +102,19 @@ npm uninstall lodash --save-dev
 npm install -g http-server
 ```
 > Podemos trocar a flag **_install_**, por **_i_**. Além de inserir **_-g_** no comando.
+#### Encontrar diretório onde arquivos do npm estão:
+```
+npm config get prefix
+```
+#### Atualizando pacotes globais
+```
+npm outdated -g
+```
+#### Atualizar apenas o que estiver na raiz
+```
+npm outdated -g --depth=0
+```
+#### Listar o que tem instalado globalmente
+```
+npm ls -g --depth=0
+```
