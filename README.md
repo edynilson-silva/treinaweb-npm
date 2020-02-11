@@ -80,3 +80,25 @@ npm update
 #### Podemos especificar também: 
 ```
 npm update nomePacote
+```
+#### Verificar pacotes desatualizados:
+```
+npm outdated
+```
+#### Desinstalando pacotes:
+```
+npm uninstall nomePacote 
+```
+>**Exemplo:**
+```
+npm uninstall lodash jquery
+```
+> Caso utilize uma versão antiga do npm, não será retirado do **devDependencies**. É necessário, passar a flag **--save-dev**.
+```
+npm uninstall lodash --save-dev
+```
+#### Instalação de Pacotes Globalmente:
+```
+npm install -g http-server
+```
+> Podemos trocar a flag **_install_**, por **_i_**. Além de inserir **_-g_** no comando.
