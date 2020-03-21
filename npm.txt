@@ -1,0 +1,308 @@
+Como publicar no NPM
+Possui uma conta ( criar pelo terminal "npm adduser" ou pelo site do NPM )
+
+E após logar,
+npm login 
+
+Após passar user, email e senha.
+
+Ir ao diretório do pacote,
+e executar npm publish
+
+Caso queira evitar que todos os arquivos sejam enviados, precisarei ter um .gitignore ou .npmignore na pasta
+
+Exemplo:
+
+npm publish .gitignore .npmignore node_modules
+
+Feito isso, podemos utilizar em nossos projetos.
+
+
+Atualizar nosso pacote
+
+npm version (patch, minor, major)
+
+Ex: npm version minor
+E dar npm publish
+
+
+Conhecendo melhor o package.json
+
+npm init --yes (ignora as perguntas)
+
+Obs: name e version campos obrigatórios
+
+Customizando os campos
+
+Criar o .npm-init.js ( na raiz disco C/user/nome do usuario)
+
+module.exports = {
+	"meucampo": "meuvalor"
+}
+
+No momento que executar o npm init, ele criará o package.json com os campos mínimos (name,version) e o campos customizados
+
+Entendendo os símblolos de controle de versão
+Major / Minor / Patch
+
+^ = Aceitar fazer atualizações quando o PATCH ou Minor release sejam feitos
+~ = Para travar os números do Major e Minor ( atualizar apenas o PATCH)
+
+Listar
+
+npm show nomePacote@* version (asterisco = mostra todas as versões ) ou especificar nomePacote@2.x.x version
+npm install nomePacote@latest (última versão)
+
+
+Executando comandos a partir do campo "scripts"
+
+"start": (Comando que podemos usar para iniciar a aplicação)
+
+Ex: "start": "node index.js" // Comando npm start
+
+Os campos test e start são especiais, por este motivos podemos chamar assim (npm nomeComando)
+
+Outros comandos, devemos utilizar npm run nomeComando
+
+Ex: "lista": "ls" // npm run lista
+
+COMANDOS DE USUÁRIOS
+
+login
+
+Comando usado para fazer login. É necessário estar logado para poder publicar pacotes no registro do npm. Os dados são salvos no arquivo ".npmrc"
+
+logout
+
+Faz logout da conta do npm, removendo os dados do ".npmrc"
+
+whoami
+
+Exibe o nome do usuário logado
+
+COMANDOS DE GERENCIAMENTO DE PACOTES
+
+install
+
+Instala todos os pacotes especificados no "package.json". Se o nome de um ou mais pacotes forem passados, eles serão instalados.
+
+uninstall
+
+Usado para desinstalar um ou mais pacotes.
+
+ls
+
+Lista os pacotes instalados
+
+outdated
+
+Lista os pacotes desatualizados
+
+search
+
+Faz uma busca de pacotes
+
+update
+
+Atualiza os pacotes
+
+prune
+
+Remove os pacotes instalados que não estão listados no "package.json". Se houver uma variável de ambiente identificando que se está em um ambiente de produção, as dependências de desenvolvimento (devDependencies) serão apagadas.
+
+COMANDOS DE PUBLICAÇÃO
+
+publish
+
+Publica o pacote do registro do npm. É necessário estar logado para executar este comando.
+
+unpublish
+
+Remove um pacote do registro do npm. Deve-se passar qual a versão será removida.
+
+IMPORTANTE
+
+Como a remoção de pacotes pode prejudicar desenvolvedores que dependem do pacote em questão, é totalmente desaconselhado usar esse comando. Prefira sempre usar o comando "deprecate".
+
+deprecate
+
+Marca o pacote como "obsoleto". Isso irá exibir uma mensagem de alerta para quem instalar o pacote.
+
+version
+
+Atualiza o número da versão do pacote. Deve-se especificar o tipo do versionamento: major, minor ou patch.
+
+OUTROS COMANDOS
+
+cache
+
+Usado para adicionar, listar ou limpar o cache do npm. Caso ocorram erros no npm, é muito útil tentar apagar o cache executando "$npm cache clean"
+
+config
+
+Ajuda a gerenciar as configurações e variáveis de ambiente.
+
+init
+
+Cria um arquivo "package.json"
+
+repo 
+
+Abre no navegador o endereço fornecido no campo "repository" do "package.json"
+
+run
+
+Executa um script fornecido no campo "scripts" do "package.json"
+
+help
+
+Lista os comandos do npm. Se passar o nome de um comando, como "npm help install", a documentação do comando será aberta.
+
+
+CONFIGURANDO O NPM
+
+.npmrc ( normalmente fica no diretório raiz do usuário atual )
+
+Para atribuir valores
+
+Ex: npm config set nomeCampo valorCampo ( npm config set abc 123)
+
+Para recuperar o valor
+
+npm config get nomeCampo ( npm config get abc)
+
+Como atalho, podemos trocar o config por c
+
+Para listar as configurações npm config list
+
+Para excluir algum valor npm c delete abc
+
+Para abrir o arquivo em algum editor npm c edit
+
+Exemplo, alterar padrão save-prefix:
+
+npm c set save-prefix ~
+
+
+npm c set prefix enderecoDiretorio ( com esse comando estamos mudando o diretório padrão onde são instalados os "pacotes globais")
+
+
+AUTOMAÇÃO DE TAREFAS
+
+Neste exemplo, iremos instalar o Babel
+
+npm init - yes
+
+npm install -D babel-cli babel-preset-env
+
+Escolher quais plugins, iremos utilizar no babel
+Criar um arquivo .babelrc
+
+
+{
+   "presets": ["env"]
+}
+
+Após, criaremos uma pasta src e outra dist
+
+--src
+- main.js
+
+--dist
+- 
+
+Chamar esse script
+./node_modules/.bin/babel src -d dist ( caminho diretório e destino)
+
+E ele criará em dist, um arquivo transpilado para o E5
+
+Podemos aproveitar esse comando, e jogar no package.json em scripts
+
+"build": "babel src -d dist"
+E chamar com npm run build
+
+instalar nodemon npm i -g nodemon
+
+"watch": "nodemon --watch src --exec \"npm run build\" "
+
+Executamos o nodemon e chama o babel.
+npm run watch
+
+"clean": "rm -r dist/*"
+Para apagar tudo que estiver no diretório dist
+
+
+
+Ganchos (hooks)
+
+prepublish
+
+Executado antes do pacote ser empacotado e publicado.
+
+prepare
+
+Executado antes e após do pacote ser empacotado e publicado.
+
+prepublishOnly
+
+Executado antes do pacote estar preparado e empacotado, apenas com “$ npm publish”.
+
+prepack
+
+Executado antes de um empacotamento ($npm pack e $npm publish).
+
+postpack
+
+Executado após os tarball serem gerados e movidos para seu destino.
+
+publish, postpublish
+
+Executado após o pacote ter sido publicado com “$npm publish”.
+
+preinstall
+
+Executado antes do pacote ter sido instalado com “$npm install”.
+
+install, postinstall
+
+Executado após o pacote ter sido instalado com “$npm install”.
+
+preuninstall, uninstall
+
+Executado antes do pacote ter sido desinstalado com “$npm uninstall”.
+
+postuninstall
+
+Executado após o pacote ter sido desinstalado com “$npm uninstall”.
+
+preversion
+
+Executado antes da mudança de versão com “$npm version”.
+
+version
+
+Executado após a mudança de versão com “$npm version”, antes do commit.
+
+postversion
+
+Executado após a mudança de versão com “$npm version”, após o commit.
+
+pretest, test, posttest
+
+Executados com o comando “$npm test”.
+
+prestop, stop, poststop
+
+Executados com o comando “$npm stop”.
+
+prestart, start, poststart
+
+Executados com o comando “$npm start”.
+
+prerestart, restart, postrestart
+
+Executados com o comando “$npm restart”. “$npm restart” executará os s “stop” e “start” caso um  “restart” não seja fornecido.
+
+preshrinkwrap, shrinkwrap, postshrinkwrap
+
+Executados com o comando “$npm shrinkwrap”.
